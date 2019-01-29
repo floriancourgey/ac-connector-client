@@ -35,16 +35,18 @@ function request(schema){
     for(var object of objects){
       var name = object['attributes']['name'].replace(/[\:\/\\]/g, '_');
       var namespace = object['attributes']['namespace'].replace(/[\:\/\\]/g, '_');
-      var path = 'download/'+obj_namespace+'_'+obj_name+'/'+namespace+'/'+name;
       console.log(' - '+namespace+' '+name+' ['+Object.keys(object.attributes)+']');
-      // console.log(' - Saving '+namespace+' '+name+' to '+path);
-      // var content = objects[0].data;
-      // fs.outputFile(path, content, function (err) {
-      //   if(err) console.log(err); // => null
-      // });
+      if(args['--download']){
+        var path = 'download/'+obj_namespace+'_'+obj_name+'/'+namespace+'/'+name;
+        var content = object.data;
+        console.log('   Saving '+namespace+' '+name+' to '+path);
+        fs.outputFile(path, content, function (err) {
+          if(err) console.log(err); // => null
+        });
+      }
     }
   }).catch( (e) => {
-    console.log('Error!', e.body);
+    console.log('Error!', e);
   });
 }
 
