@@ -13,7 +13,7 @@ const args = arg({
   '--download': Boolean,
 }, options = {permissive: false});
 if(!args['--schema']){
-  throw new Error('Missing --schema option. I.e --schema xtk:jssp');
+  args['--schema'] = 'xtk:schema'
 }
 
 function request(schema){
@@ -26,9 +26,9 @@ function request(schema){
       '$schema': schema,
     },
   };
-  var request = queryDef.ExecuteQuery(jxon.jsToString(js));
+  var req = queryDef.ExecuteQuery(jxon.jsToString(js));
 
-  request.then( (result) => {
+  req.then( (result) => {
     console.log('Success!');
     var objects = result[obj_name+'-collection'][obj_name];
     console.log(objects.length+' '+schema+' files found.');
@@ -49,7 +49,8 @@ function request(schema){
         var path = 'download/'+obj_namespace+'_'+obj_name+'/'+namespace+'/'+name;
         var content = object.data;
         console.log('   Saving '+namespace+' '+name+' to '+path);
-        fs.outputFile(path, content, function (err) {
+        console.log('   with content:', content);
+        fs.outputFileSync(path, content, function (err) {
           if(err) console.log(err); // => null
         });
       }
