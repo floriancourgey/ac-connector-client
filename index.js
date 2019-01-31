@@ -24,17 +24,33 @@ function request(schema){
     query: {
       '$operation': 'select',
       '$schema': schema,
+      select: {
+        node: [
+          {expr: "@created"},
+          {expr: "@lastModified"}
+        ]
+      },
     },
   };
-  var req = queryDef.ExecuteQuery(jxon.jsToString(js));
-
+  var js = {
+    queryDef: {
+      '$firstRows':"true",
+      '$lineCount':"1",
+      '$operation':"select",
+      '$schema': schema
+    }
+  }
+  var req = queryDef.SelectAll(jxon.jsToString(js));
+  console.log(req);
   req.then( (result) => {
     console.log('Success!');
+    console.log(result);
     var objects = result[obj_name+'-collection'][obj_name];
     console.log(objects.length+' '+schema+' files found.');
     if(objects.length < 1){
       return;
     }
+    console.log(objects);
     console.log(objects[0]);
     console.log('Object keys:', Object.keys(objects[0]));
     if(objects[0]['attributes']){
