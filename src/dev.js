@@ -3,32 +3,50 @@ if (process.env.NODE_ENV !== 'production') {
 }
 const soap = require('soap');
 var jxon = require('jxon');
-const ACC = require('ac-connector');
 
 const endpoint = process.env.ACC_ENDPOINT
 const wsdl = './wsdl/ac7-8889/xtk_queryDef.wsdl'
 
-var ret = soap.createClientAsync(wsdl, {endpoint : endpoint}).then((client) => {
+// process.env.http_proxy = 'http://127.0.0.1:8888';
+
+var client = soap.createClientAsync(wsdl, {endpoint : endpoint});
+client.then((client) => {
+  console.log('Client Success!', client.describe());
   var js = {
     queryDef: {
       '$firstRows':"true",
-      '$lineCount':"1",
+      '$lineCount':"5",
       '$operation':"select",
-      '$schema': 'xtk:workflow'
+      '$schema': 'xtk:workflow',
+      select: {
+        node: [
+          {'$expr': "@label"},
+          {'$expr': "@internalName"},
+          {'$expr': "data"},
+        ]
+      },
+      where: {
+        condition: {'$expr': "@internalName like '%fresh%'"}
+      }
     }
   }
   var args = {};
   args.sessiontoken = process.env.ACC_SESSIONTOKEN;
   args.entity = { $xml: jxon.jsToString(js)}
-  args.duplicate = false
-  return client.SelectAllAsync(args);
-}).then((result) => {
-  var fields = [];
-  for(var node of result['entity']['queryDef']['select']['node']){
-    var field = node['attributes']['expr'];
-    fields.push(field);
-  }
-  return fields;
-}).then((fields) => {
-  console.log(fields);
-});
+  return client.ExecuteQuery(args, function(err, result){
+    if(err){
+      console.log('Err', err);
+      return;
+    }
+    console.log('Success! Request:', client.lastRequest);
+    console.log('Success! Response:', client.lastResponse);
+    var workflows = [];
+    var _ExecuteQueryResponse = jxon.stringToJs(client.lastResponse)['SOAP-ENV:Envelope']['SOAP-ENV:Body']['ExecuteQueryResponse'];
+    for(var workflow of _ExecuteQueryResponse['pdomOutput']['workflow-collection']['workflow']){
+      workflows.push(workflow);
+    }
+    console.log(workflows);
+    console.log(workflows[0]['activities']);
+    return workflows;
+  });
+})
