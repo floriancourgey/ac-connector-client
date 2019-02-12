@@ -61,16 +61,16 @@ $ cat download/_workflow/myWorkflow1.js
       </transitions>
       <script>logInfo('Hello')</script>
     </js>
-    <query distinct="true" img="nms:activities/query.png" keepAllExtraData="false" label="email is not empty" name="query" noAutoPk="false" noAutoPkFilter="false" schema="nms:recipient" useSource="0" x="40" y="88">
+    <query img="nms:activities/query.png" label="email is not empty" name="query" schema="nms:recipient" useSource="0" x="40" y="88">
       <transitions>
         <result enabled="true" label="Result" name="result" target="fork"/>
       </transitions>
-      <where displayFilter="email is not empty" filterName="backGroundFilterFrm" id="1134428176">
-        <condition compositeKey="" dependkey="" enabledIf="" expr="@email IS NOT NULL" internalId="1134034958"/>
+      <where displayFilter="email is not empty" filterName="backGroundFilterFrm">
+        <condition enabledIf="" expr="@email IS NOT NULL"/>
       </where>
       <humanCond>Query: email is not empty</humanCond>
     </query>
-    <writer img="nms:activities/writer.png" label="Update data" mask="1" maxErrorCount="100" name="writer" noPreservation="true" operationType="insertOrUpdate" schema="nms:recipient" transactionSize="10000" x="320" y="40">
+    <writer img="nms:activities/writer.png" label="Update data" name="writer" operationType="insertOrUpdate" schema="nms:recipient" transactionSize="10000" x="320" y="40">
       <transitions>
         <done enabled="false" name="done"/>
         <remainder enabled="false" label="Rejects" name="remainder"/>
