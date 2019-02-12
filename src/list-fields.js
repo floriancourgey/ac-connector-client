@@ -3,7 +3,6 @@ if (process.env.NODE_ENV !== 'production') {
 }
 const soap = require('soap');
 var jxon = require('jxon');
-const ACC = require('ac-connector');
 
 const endpoint = process.env.ACC_ENDPOINT
 const wsdl = './wsdl/ac7-8889/xtk_queryDef.wsdl'
