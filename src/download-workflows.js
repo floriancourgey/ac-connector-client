@@ -30,7 +30,8 @@ client.then((client) => {
         ]
       },
       where: {
-        condition: {'$expr': "@internalName like '%fresh%'"}
+        // condition: {'$expr': "@internalName like '%fresh%'"},
+        // condition: {'$expr': "@internalName like 'myWorkflow1'"},
       }
     }
   }
@@ -49,8 +50,13 @@ client.then((client) => {
 
     var _ExecuteQueryResponse = xmlParser.parseString(client.lastResponse, function(err, result){
       if(err) throw err;
-      // console.log();
-      for(var workflow of result['SOAP-ENV:Envelope']['SOAP-ENV:Body']['ExecuteQueryResponse']['pdomOutput']['workflow-collection']['workflow']){
+      // console.log(client.lastResponse);
+      var collection = result['SOAP-ENV:Envelope']['SOAP-ENV:Body']['ExecuteQueryResponse']['pdomOutput']['workflow-collection']['workflow'];
+      // if only 1 result, wrap it in an array
+      if(!collection.length){
+        collection = [collection];
+      }
+      for(var workflow of collection){
         workflows.push(workflow);
       }
       console.log(workflows[0]);
