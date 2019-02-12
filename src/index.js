@@ -32,15 +32,7 @@ function request(schema){
       },
     },
   };
-  var js = {
-    queryDef: {
-      '$firstRows':"true",
-      '$lineCount':"1",
-      '$operation':"select",
-      '$schema': schema
-    }
-  }
-  var req = queryDef.SelectAll(jxon.jsToString(js));
+  var req = queryDef.ExecuteQuery(jxon.jsToString(js));
   console.log(req);
   req.then( (result) => {
     console.log('Success!');
