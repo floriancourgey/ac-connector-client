@@ -32,7 +32,7 @@ $ tree download
     └───xtk
 ```
 
-### Download all workflows
+### Download all workflows (xtk:workflow)
 Duplicate `.env.dist` to `.env` and fill in your endpoint + login/pass
 ```bash
 $ node src/download-workflow.js
@@ -78,5 +78,40 @@ $ cat download/_workflow/myWorkflow1.js
     </writer>
   </activities>
   <variables/>
+</root>
+```
+
+
+## Download all Web applications (nms:webApp)
+Duplicate `.env.dist` to `.env` and fill in your endpoint + login/pass
+```bash
+$ node src/download-webApp.js
+$ tree download/_webApp
+├───APP01.js
+└───newWebApp.js
+$ cat download/_webApp/newWebApp.js
+```
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<root _cs=" ()" background="nms:backgrounds/survey.png" entitySchema="nms:webApp" internalName="newWebApp" label="New Web application" originUrlOverride="true" schema="nms:recipient" startPath="/" useAEM="false" uuid="22ff0323-747d-4d8e-83bd-1933a0b88722">
+  <properties labelPosition="left" navigationMode="button" renderingEngine="1" windowTitle="Enter the title of the window here"/>
+  <errorPage label="Error" name="errorPage">
+    <endPage>
+      <source>&lt;table style="color: red;"&gt;
+&lt;tr&gt;
+&lt;td style="vertical-align: middle; padding-left: 0.5em;"&gt;&lt;img src="/xtk/img/error.png"/&gt;&lt;/td&gt;
+&lt;td style="vertical-align: middle; padding: 1em;"&gt;
+&lt;p&gt;&lt;%= $(line1) %&gt;&lt;/p&gt;
+&lt;p&gt;&lt;%= $(line2) %&gt;&lt;/p&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</source>
+      <strings>
+        <string id="line2" value="If this problem persists, please contact your Adobe Campaign administrator."/>
+        <string id="line1" value="An error occurred."/>
+      </strings>
+    </endPage>
+  </errorPage>
+  <closedFormLog>This form is currently closed.</closedFormLog>
 </root>
 ```
