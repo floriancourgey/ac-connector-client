@@ -1,17 +1,17 @@
 # ac-conector-client
 
 ## Init your AC7 connection
-```bash
+```console
 $ npm install
 $ ./node_modules/.bin/ACCManager
-# Interface Access started, please open :
-# http://localhost:4545
-# Create a Connection named 'My Connection Name'
+Interface Access started, please open :
+http://localhost:4545
+Create a Connection named 'My Connection Name'
 ```
 
 ## Use it
 ### Display all schemas
-```bash
+```console
 $ node src/index.js --schema xtk:schema
 [...]
 - xtk sqlSchema [_cs,_isMemoNull,img,label,md5,name,namespace]
@@ -22,7 +22,7 @@ $ node src/index.js --schema xtk:schema
 ```
 
 ### Download all JSSP
-```bash
+```console
 $ node src/index.js --schema xtk:jssp --download
 $ tree download
 └───xtk_jssp
@@ -34,14 +34,14 @@ $ tree download
 
 ### Download all workflows (xtk:workflow)
 Duplicate `.env.dist` to `.env` and fill in your endpoint + login/pass
-```bash
+```console
 $ node src/download-workflow.js
 $ tree download/_workflow
 ├───myWorkflow1.js
 └───myWorkflow2.js
 ```
 ![](/docs/myWorkflow1.jpg)
-```bash
+```console
 $ cat download/_workflow/myWorkflow1.js
 ```
 ```xml
@@ -84,7 +84,7 @@ $ cat download/_workflow/myWorkflow1.js
 
 ## Download all Web applications (nms:webApp)
 Duplicate `.env.dist` to `.env` and fill in your endpoint + login/pass
-```bash
+```console
 $ node src/download-webApp.js
 $ tree download/_webApp
 ├───APP01.js
