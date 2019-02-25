@@ -93,8 +93,8 @@ $ cat download/_webApp/newWebApp.js
 ```
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<root _cs=" ()" background="nms:backgrounds/survey.png" entitySchema="nms:webApp" internalName="newWebApp" label="New Web application" originUrlOverride="true" schema="nms:recipient" startPath="/" useAEM="false" uuid="22ff0323-747d-4d8e-83bd-1933a0b88722">
-  <properties labelPosition="left" navigationMode="button" renderingEngine="1" windowTitle="Enter the title of the window here"/>
+<root background="nms:backgrounds/survey.png" entitySchema="nms:webApp" internalName="newWebApp" label="New Web application" schema="nms:recipient">
+  <properties windowTitle="Enter the title of the window here" labelPosition="left" navigationMode="button" renderingEngine="1"/>
   <errorPage label="Error" name="errorPage">
     <endPage>
       <source>&lt;table style="color: red;"&gt;
