@@ -30,6 +30,10 @@ client.then((client) => {
         ]
       },
       where: {
+        condition: {'$expr': '@builtIn = 0'},
+        condition: {'$expr': '@label NOT LIKE \'%Copy of%\''},
+        condition: {'$expr': '@label NOT LIKE \'%Backup%\''},
+        condition: {'$expr': '@label NOT LIKE \'%Sandbox%\''},
         // condition: {'$expr': "@internalName like '%fresh%'"},
         // condition: {'$expr': "@internalName like 'myWorkflow1'"},
       }
