@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/floriancourgey/ac-conector-client#readme",
   "dependencies": {
-    "ac-connector": "^0.2.3",
+    "ac-connector": "^0.2.13",
     "arg": "^4.1.0",
     "dotenv": "^6.2.0",
     "fs-extra": "^7.0.1",
